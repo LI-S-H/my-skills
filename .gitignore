@@ -1,0 +1,12 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+# Node (in case someone wraps in npm package)
+node_modules/
