@@ -4,7 +4,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-blue)](https://claude.ai/code)
 [![Claude Cowork](https://img.shields.io/badge/Claude%20Cowork-Compatible-green)](https://claude.ai)
 
-适用于 **Claude Code / Claude Cowork** 的技能合集，覆盖开发全流程：需求澄清 → 任务审查执行 → Bug 修复。
+适用于 **Claude Code / Claude Cowork** 的技能合集，覆盖开发全流程：需求澄清 → 任务审查执行 → Bug 修复 → 技术博客写作。
 
 ---
 
@@ -35,6 +35,7 @@
 | [requirement-clarifier](/.trae/skills/requirement-clarifier/SKILL.md) | 检测并澄清模糊需求，确保需求可拆解为具体任务 | 用户描述模糊、范围不明确时自动触发 |
 | [task-review-executor](/.trae/skills/task-review-executor/SKILL.md) | 多 Agent 协作审查执行，流程审批、产出验收、问题修正 | 任务复杂度高、用户多次反馈不符时自动触发 |
 | [bug-fix](/.trae/skills/bug-fix/SKILL.md) | 先诊断再开药，分支隔离，自测闭环 | 说出 fix/修复/报错/debug 等关键词自动触发 |
+| [blog-writer](/.trae/skills/blog-writer/SKILL.md) | 生成结构清晰、内容深度的中文技术博客/文档 | 用户说"写博客"、"写文档"、"整理成文章"时触发 |
 
 ---
 
@@ -131,9 +132,10 @@
 标准化需求   审查+执行闭环    诊断+修复+验证
 ```
 
-三个技能相互协作形成完整闭环：
+四个技能相互协作形成完整闭环：
 - **requirement-clarifier** 在 task-review-executor 审查阶段检测到模糊需求时被调用
 - **bug-fix** 可被 task-review-executor 在执行过程中遇到 Bug 时作为子任务调度
+- **blog-writer** 可独立使用，也可在任务完成后生成技术文档或博客
 - 所有技能均支持中文交互
 
 ---
@@ -161,6 +163,8 @@ my-skills/
 ├── README.md
 └── .trae/
     └── skills/
+        ├── blog-writer/
+        │   └── SKILL.md
         ├── bug-fix/
         │   └── SKILL.md
         ├── requirement-clarifier/
