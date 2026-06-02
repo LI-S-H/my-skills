@@ -4,7 +4,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-blue)](https://claude.ai/code)
 [![Claude Cowork](https://img.shields.io/badge/Claude%20Cowork-Compatible-green)](https://claude.ai)
 
-适用于 **Claude Code / Claude Cowork** 的技能合集，覆盖开发全流程：需求澄清 → 任务审查执行 → Bug 修复 → 技术博客写作。
+适用于 **Claude Code / Claude Cowork** 的技能合集，覆盖开发全流程：需求澄清 → 任务审查执行 → Bug 修复 → 技术博客写作 → Hexo博客管理。
 
 ---
 
@@ -36,6 +36,7 @@
 | [task-review-executor](/.trae/skills/task-review-executor/SKILL.md) | 多 Agent 协作审查执行，流程审批、产出验收、问题修正 | 任务复杂度高、用户多次反馈不符时自动触发 |
 | [bug-fix](/.trae/skills/bug-fix/SKILL.md) | 先诊断再开药，分支隔离，自测闭环 | 说出 fix/修复/报错/debug 等关键词自动触发 |
 | [blog-writer](/.trae/skills/blog-writer/SKILL.md) | 生成结构清晰、内容深度的中文技术博客/文档 | 用户说"写博客"、"写文档"、"整理成文章"时触发 |
+| [hexo-front-matter](/.trae/skills/hexo-front-matter/SKILL.md) | 为Hexo博客Markdown添加YAML front matter头部 | 用户需要给博客文章添加front matter时触发 |
 
 ---
 
@@ -132,10 +133,11 @@
 标准化需求   审查+执行闭环    诊断+修复+验证
 ```
 
-四个技能相互协作形成完整闭环：
+五个技能相互协作形成完整闭环：
 - **requirement-clarifier** 在 task-review-executor 审查阶段检测到模糊需求时被调用
 - **bug-fix** 可被 task-review-executor 在执行过程中遇到 Bug 时作为子任务调度
 - **blog-writer** 可独立使用，也可在任务完成后生成技术文档或博客
+- **hexo-front-matter** 在 blog-writer 完成博客写作后，为 Hexo 格式文章添加 front matter
 - 所有技能均支持中文交互
 
 ---
@@ -166,6 +168,8 @@ my-skills/
         ├── blog-writer/
         │   └── SKILL.md
         ├── bug-fix/
+        │   └── SKILL.md
+        ├── hexo-front-matter/
         │   └── SKILL.md
         ├── requirement-clarifier/
         │   └── SKILL.md
