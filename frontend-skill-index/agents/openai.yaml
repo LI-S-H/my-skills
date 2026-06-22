@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端技能索引"
+  short_description: "选择合适的前端开发技能"
+  default_prompt: "使用 $frontend-skill-index 为当前任务选择合适的前端技能。"

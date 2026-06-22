@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端契约同步"
+  short_description: "同步 UI 字段、API、Mock、测试和文档"
+  default_prompt: "使用 $frontend-doc-sync 同步这次前端变更涉及的契约和文档。"

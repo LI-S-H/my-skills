@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端需求门禁"
+  short_description: "明确 UI 范围、字段来源和状态规则"
+  default_prompt: "使用 $frontend-requirement-gate 先澄清这个前端需求，再开始实现。"

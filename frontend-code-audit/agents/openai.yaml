@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端代码审核"
+  short_description: "审核 UI 代码、事件、校验、加载和测试"
+  default_prompt: "使用 $frontend-code-audit 在交付前审核这次前端改动。"

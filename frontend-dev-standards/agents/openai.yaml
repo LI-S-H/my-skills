@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端开发规范"
+  short_description: "约束 UI 编码、组件复用和页面一致性"
+  default_prompt: "使用 $frontend-dev-standards 检查这次前端开发应遵守的规范。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端修复闭环"
+  short_description: "定位、修复、复测并记录前端问题"
+  default_prompt: "使用 $frontend-fix-loop 修复并验证这个前端问题。"
