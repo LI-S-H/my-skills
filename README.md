@@ -1,6 +1,6 @@
 # My Skills
 
-这是一个个人 Agent Skills 仓库，用来沉淀可复用的工作流、检查清单、脚本和 Agent 指令。
+这是个人 Agent Skills 仓库，用来沉淀可复用的工作流、检查清单、脚本和 Agent 指令。
 
 本仓库不再限定为 Claude Code / Claude Cowork 使用。只要你的工具支持读取 `SKILL.md`、自定义 rules、上下文文件、项目说明或脚本，就可以按需复用这些技能。
 
