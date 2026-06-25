@@ -1,4 +1,4 @@
 interface:
-  display_name: "前端浏览器验收"
-  short_description: "用浏览器截图和断言验证 UI 流程"
-  default_prompt: "使用 $frontend-browser-qa 对这次前端改动进行浏览器截图验收。"
+  display_name: "前端浏览器 QA"
+  short_description: "浏览器截图、基础交互和显示问题取证"
+  default_prompt: "使用 $frontend-browser-qa 对这次前端改动进行浏览器截图和基础交互取证。"

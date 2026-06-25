@@ -1,0 +1,4 @@
+interface:
+  display_name: "前端 PRD 生成"
+  short_description: "生成并维护目标项目 docs/product/PRD.md"
+  default_prompt: "使用 $frontend-product-docs 为这个前端功能生成或更新目标项目的 PRD。"

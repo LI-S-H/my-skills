@@ -47,7 +47,7 @@ function usage() {
 }
 
 const root = process.cwd();
-const baseDir = path.join(root, 'qa-artifacts', 'browser');
+const baseDir = path.join(root, 'docs', 'qa-screenshots');
 
 if (!command || has('--help')) {
   usage();
@@ -83,7 +83,7 @@ if (command === 'cleanup') {
   }
   const runDirArg = valueOf('--run-dir');
   if (!runDirArg) {
-    console.error('缺少 --run-dir=qa-artifacts/browser/<run>');
+    console.error('缺少 --run-dir=docs/qa-screenshots/<run>');
     process.exit(1);
   }
   const target = path.resolve(root, runDirArg);

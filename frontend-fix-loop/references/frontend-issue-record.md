@@ -23,6 +23,5 @@
 
 1. 只有用户认可修复后才能新增记录。
 2. 如果问题已被本文件覆盖，不新增重复行，只强化对应规范。
-3. 如果问题证明 QA 流程漏项，同时更新 `frontend-browser-qa/references/frontend-product-qa-checklist.md` 或 `frontend-browser-qa/references/browser-qa-checklist.md`。
-4. 如果问题证明开发规范漏项，同时更新 `frontend-dev-standards/references/frontend-dev-must-read.md` 或 `frontend-dev-standards/references/frontend-dev-standards.md`。
-5. 安装或升级 skill 时，不得直接覆盖本文件里已经沉淀的用户记录；如果源包和本地安装目录都有记录，先合并去重，再保留更具体、更被验证过的说法。
+3. 需要沉淀到长期维护文件时，按 `frontend-fix-loop/references/fix-loop.md` 第6节的映射表选择目标文件：显示/代码问题沉淀到 skill 文件，业务逻辑问题沉淀到目标项目 PRD。
+4. 安装或升级 skill 时，不得直接覆盖本文件里已经沉淀的用户记录；如果源包和本地安装目录都有记录，先合并去重，再保留更具体、更被验证过的说法。

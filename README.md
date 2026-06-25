@@ -1,8 +1,6 @@
 # My Skills
 
-这是个人 Agent Skills 仓库，用来沉淀可复用的工作流、检查清单、脚本和 Agent 指令。
-
-本仓库不再限定为 Claude Code / Claude Cowork 使用。只要你的工具支持读取 `SKILL.md`、自定义 rules、上下文文件、项目说明或脚本，就可以按需复用这些技能。
+个人 Agent Skills 仓库，沉淀可复用的工作流、检查清单、脚本和 Agent 指令。
 
 GitHub: [LI-S-H/my-skills](https://github.com/LI-S-H/my-skills)
 
@@ -12,63 +10,124 @@ GitHub: [LI-S-H/my-skills](https://github.com/LI-S-H/my-skills)
 - Claude Code / Claude Cowork
 - Cursor、Gemini CLI、Roo Code 等支持自定义规则或上下文的 Agent 工具
 - 团队内部自建 Agent、代码审核助手、CI 检查脚本
+- Trae 等支持 Skills 体系的 IDE
 
 ## 仓库结构
 
 ```text
 my-skills/
-├── frontend-browser-qa/
-├── frontend-code-audit/
-├── frontend-dev-standards/
-├── frontend-doc-sync/
-├── frontend-fix-loop/
-├── frontend-requirement-gate/
-├── frontend-skill-index/
-└── .trae/
-    └── skills/
-        ├── blog-writer/
-        ├── bug-fix/
-        ├── hexo-front-matter/
-        ├── requirement-clarifier/
-        └── task-review-executor/
+├── frontend-browser-qa/         # 浏览器 QA 取证
+├── frontend-code-audit/         # 代码审核
+├── frontend-dev-standards/      # 开发规范
+├── frontend-doc-sync/           # 契约同步
+├── frontend-fix-loop/           # 修复闭环
+├── frontend-product-acceptance/ # 产品验收
+├── frontend-product-docs/       # PRD 生成
+├── frontend-requirement-gate/   # 需求门禁
+├── frontend-skill-index/        # 技能索引
+└── .trae/skills/                # 历史技能（Trae/ Claude 兼容）
+    ├── blog-writer/
+    ├── bug-fix/
+    ├── hexo-front-matter/
+    ├── requirement-clarifier/
+    └── task-review-executor/
 ```
 
-根目录下的 `frontend-*` 是通用前端 Agent Skills 包，更适合 Codex、Claude Code 或其他 Agent 直接按目录读取。
+根目录下的 `frontend-*` 是通用前端 Agent Skills 包，按阶段拆分，闭环协作。
 
-`.trae/skills` 保留了早期面向 Claude Code / Claude Cowork / Trae 工作流的技能，适合继续作为历史技能库或迁移参考。
+`.trae/skills` 保留了早期面向 Claude Code / Trae 工作流的技能，适合继续作为历史技能库或迁移参考。
 
-## 通用前端 Skills
+## 通用前端 Skills 工作流
 
-| Skill | 用途 |
-| --- | --- |
-| `frontend-skill-index` | 前端技能路由索引，用于判断当前任务应该调用哪个 skill，以及维护技能包结构。 |
-| `frontend-requirement-gate` | 前端需求门禁，用于新增或修改页面、表单、表格、弹窗、工作流、权限、状态规则前先明确范围。 |
-| `frontend-dev-standards` | 前端开发规范，用于编码或修复前约束组件复用、表单、表格、弹窗、布局、样式、加载和分页一致性。 |
-| `frontend-doc-sync` | 前端契约同步，用于 UI 改动影响 API、schema、DTO、Mock、测试数据、校验规则或状态模型时。 |
-| `frontend-code-audit` | 前端代码审核，用于 UI 实现或修复后检查数据映射、事件绑定、校验、加载态、提交锁、测试和回归风险。 |
-| `frontend-browser-qa` | 前端浏览器验收，用于真实浏览器截图、Playwright 流程、视觉问题、滚动、弹窗和响应式布局检查。 |
-| `frontend-fix-loop` | 前端问题修复闭环，用于视觉错乱、交互失效、字段错误、截图反馈、QA 失败、复测和问题记录沉淀。 |
+9 个 skill 组成完整的前端开发闭环，从需求到验收，再到问题修复和知识沉淀。
 
-推荐调用顺序：
+### 工作流全景
 
-1. `frontend-requirement-gate`
-2. `frontend-dev-standards`
-3. `frontend-doc-sync`
-4. `frontend-code-audit`
-5. `frontend-browser-qa`
-6. `frontend-fix-loop`
+```
+需求门禁 ──复述模板──→ PRD生成 ──PRD──→ 开发规范 ──代码──→ 契约同步
+                                                          │
+                                                          ▼
+                                                      代码审核(分类输出)
+                                                     ╱        │        ╲
+                                          显示问题      代码问题     业务逻辑
+                                             │           │           │
+                                             ▼           ▼           ▼
+                                         浏览器QA     fix-loop    fix-loop
+                                        (取证不修复)   →code-audit  →产品验收
+                                             │           │           │
+                                             └─────→ fix-loop ←──────┘
+                                                       │
+                                            显示/代码问题 → skill 文件
+                                            业务逻辑问题 → 项目 PRD
+```
+
+### 推荐调用顺序
+
+| 阶段 | Skill | 用途 |
+| --- | --- | --- |
+| 1. 需求澄清 | `frontend-requirement-gate` | 开发前确认目标、范围、用户动作、业务状态、数据来源和验收标准 |
+| 2. PRD 生成 | `frontend-product-docs` | 在目标项目生成 `docs/product/PRD.md`，补全产品需求文档 |
+| 3. 开发规范 | `frontend-dev-standards` | 改代码前检查组件复用、字段契约、表格、弹窗、样式、异步状态 |
+| 4. 契约同步 | `frontend-doc-sync` | 字段、接口、Schema、Mock、测试数据变化时保持一致 |
+| 5. 代码审核 | `frontend-code-audit` | 写完后按三类（显示/代码/业务逻辑）输出问题 |
+| 6. 浏览器 QA | `frontend-browser-qa` | 真实浏览器截图、Playwright、视觉取证（只取证不修复） |
+| 7. 产品验收 | `frontend-product-acceptance` | 基于 PRD 与浏览器证据，从产品视角审核功能和业务逻辑 |
+| 8. 修复闭环 | `frontend-fix-loop` | 处理用户反馈和重复问题，修复、回归、确认后沉淀规则 |
 
 维护或选择 skill 时，先看 `frontend-skill-index`。
 
-## 历史 `.trae` Skills
+### 三类问题与沉淀路径
+
+| 问题类型 | 说明 | 沉淀位置 |
+| --- | --- | --- |
+| 显示问题 | 视觉错乱、布局破、表格重叠、sticky 透明、截断不合理、响应式异常 | skill 长期维护文件 |
+| 代码问题 | 数据映射错、事件绑定缺、校验缺、提交锁缺、Mock 不一致、测试缺失 | skill 长期维护文件 |
+| 业务逻辑问题 | 状态流转不符合业务、权限规则错、字段含义/来源/口径与业务不符、流程缺口、验收标准缺失 | 目标项目 `docs/product/PRD.md` |
+
+**核心设计原则**：通用前端问题沉淀进 skill 仓库（跨项目复用），业务逻辑问题沉淀进目标项目 PRD（各项目独特要求）。
+
+### Skill 详细说明
+
+| Skill | 主 Reference | 核心产出 |
+| --- | --- | --- |
+| `frontend-requirement-gate` | `references/requirement-checklist.md` | 需求复述模板、假设和待确认项 |
+| `frontend-product-docs` | `references/product-docs-guide.md` | 目标项目 `docs/product/PRD.md` |
+| `frontend-dev-standards` | `references/frontend-dev-standards.md` | 按规范实现的前端代码 |
+| `frontend-doc-sync` | `references/doc-sync-checklist.md` | 字段矩阵、API/Schema、Mock、测试数据同步 |
+| `frontend-code-audit` | `references/code-audit-checklist.md` | 分类输出的问题清单（显示/代码/业务逻辑） |
+| `frontend-browser-qa` | `references/browser-qa-checklist.md` | 截图目录（目标项目 `docs/qa-screenshots/`）、断言结果 |
+| `frontend-product-acceptance` | `references/product-acceptance-checklist.md` | 验收结论 + 问题分流 |
+| `frontend-fix-loop` | `references/fix-loop.md` | 修复结果 + 沉淀到对应文件 |
+| `frontend-skill-index` | `references/frontend-skill-package.md` | skill 路由和包结构说明 |
+
+## 历史 Skills（.trae/skills）
 
 | Skill | 用途 |
 | --- | --- |
-| `requirement-clarifier` | 检测并澄清模糊需求，确保需求可拆解为具体任务。 |
-| `task-review-executor` | 通过多 Agent 协作审查复杂任务，包含流程审批、产出验收和问题修正循环。 |
-| `bug-fix` | Bug 修复闭环，强调先诊断根因、再实施修复、最后验证和记录。 |
-| `blog-writer` | 生成结构清晰、有深度的中文技术博客或技术文档。 |
-| `hexo-front-matter` | 为 Hexo 博客 Markdown 添加 YAML front matter。 |
+| `requirement-clarifier` | 检测并澄清模糊需求，确保需求可拆解为具体任务 |
+| `task-review-executor` | 通过多 Agent 协作审查复杂任务，包含流程审批、产出验收和问题修正循环 |
+| `bug-fix` | Bug 修复闭环，强调先诊断根因、再实施修复、最后验证和记录 |
+| `blog-writer` | 生成结构清晰、有深度的中文技术博客或技术文档 |
+| `hexo-front-matter` | 为 Hexo 博客 Markdown 添加 YAML front matter |
+
+## 文档收敛原则
+
+- 每个 skill 默认只有一个强制阅读的主 reference，减少 token 消耗和规则冲突
+- 记录库、脚本说明、目标项目 PRD 按需读取
+- 具体业务 PRD 不写进本 skill 包，维护在目标项目 `docs/product/PRD.md`
+- 浏览器截图存放在目标项目 `docs/qa-screenshots/` 下，不放进 skill 仓库
+
+## 自进化机制
+
+所有 skill 支持三种触发场景的规则沉淀：
+
+1. **fix-loop 沉淀**：修复问题后，用户确认，暴露出规则缺失
+2. **用户直接指出**：用户明确说某个清单漏了规则或规则有误
+3. **Agent 自发现**：使用 skill 时发现规则缺口
+
+无论哪种场景，都遵循相同的更新步骤：定位文件 → 全文搜索 → 强化/改写/新增 → 输出沉淀动作。已有规则未被执行时，强化原条目，**禁止另写新条目**。
+
+详细映射表和操作步骤见 `frontend-fix-loop/references/fix-loop.md` 第6节。
 
 ## 安装与同步
 
@@ -80,33 +139,31 @@ my-skills/
 cp -r frontend-* ~/.codex/skills/
 ```
 
-Windows 环境通常是：
+Windows 环境通常是 `C:\Users\<你的用户名>\.codex\skills`。
 
-```text
-C:\Users\<你的用户名>\.codex\skills
-```
+### Trae
 
-复制后重新打开会话，或让 Codex 重新读取 skills 列表。
+将仓库中的 skill 目录复制到 Trae 的 skills 目录，或在项目设置中引用。
 
 ### Claude Code / Claude Cowork
 
-可以把本仓库作为团队规则库使用：
+把本仓库作为团队规则库使用：
 
-1. 克隆仓库到本地固定目录。
-2. 在项目说明、上下文或自定义规则里引用对应 `SKILL.md`。
-3. 如果 skill 有 `references/`，同时引入相关检查清单。
-
-历史 `.trae/skills` 仍可按旧方式使用；新的 `frontend-*` 目录更适合作为跨 Agent 的通用技能包。
+1. 克隆仓库到本地固定目录
+2. 在项目说明、上下文或自定义规则里引用对应 `SKILL.md`
+3. 如果 skill 有 `references/`，同时引入相关检查清单
 
 ### 其他 Agent 工具
 
-如果工具支持自定义 rules、memory、context、instructions 或 knowledge files，可以按任务阶段引入对应文件：
+按任务阶段引入对应文件：
 
 - 需求不清：`frontend-requirement-gate/SKILL.md`
+- 需要生成或补全 PRD：`frontend-product-docs/SKILL.md`
 - 开发前规范：`frontend-dev-standards/SKILL.md`
 - 契约或字段变化：`frontend-doc-sync/SKILL.md`
 - 提交前审核：`frontend-code-audit/SKILL.md`
-- 浏览器验收：`frontend-browser-qa/SKILL.md`
+- 浏览器取证：`frontend-browser-qa/SKILL.md`
+- 产品验收：`frontend-product-acceptance/SKILL.md`
 - 用户反馈和复测：`frontend-fix-loop/SKILL.md`
 
 建议不要一次性加载所有规则。按任务阶段加载最相关的 skill，Agent 更容易稳定执行。
@@ -115,15 +172,15 @@ C:\Users\<你的用户名>\.codex\skills
 
 每个通用 skill 目录通常包含：
 
-- `SKILL.md`：入口说明，包含名称、触发场景和工作流程。
-- `references/`：更细的规范、清单、问题记录或维护说明。
-- `scripts/`：可复用的辅助脚本，例如浏览器截图目录管理、前端检查门禁。
-- `agents/`：面向特定 Agent 平台的适配配置。
+- `SKILL.md`：入口说明，包含名称、触发场景和工作流程
+- `references/`：该 skill 的唯一主规则文档
+- `scripts/`：可复用的辅助脚本
+- `agents/`：面向特定 Agent 平台的适配配置
 
 ## 维护原则
 
-- 每个 skill 只负责一个明确阶段，避免做成大而全的提示词。
-- `SKILL.md` 保持短小，复杂规则放入 `references/`。
-- 自动化能力放入 `scripts/`，避免在说明文档里重复大段脚本。
-- 文档默认使用中文；API 名称、命令、配置项和错误信息保留英文原文。
-- 新增长期规则时，优先更新最具体的 `references/*.md`，只有跨多个阶段复用时再同步到总览。
+- 每个 skill 只负责一个明确阶段，避免做成大而全的提示词
+- `SKILL.md` 保持短小，复杂规则放入 `references/`
+- 自动化能力放入 `scripts/`，避免在说明文档里重复大段脚本
+- 文档默认使用中文；API 名称、命令、配置项和错误信息保留英文原文
+- 新增长期规则时，优先更新对应 skill 的唯一主 reference；只有跨多个阶段复用时再同步到总览
