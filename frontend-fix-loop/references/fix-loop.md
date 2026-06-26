@@ -40,7 +40,7 @@
 
 最低验证：相关静态检查、构建或测试命令；受影响 smoke 或交互脚本；用户原始反馈场景。
 
-视觉问题必须重新截图。浏览器 QA 类修复必须覆盖相同视口和相同目标区域；原截图标注了下拉、单元格或弹窗字段，新证据也必须覆盖同一表面。
+视觉问题必须重新截图。浏览器 QA 类修复必须按原问题类型回归：视觉/布局问题覆盖相同视口和相同目标区域；动态交互问题重新执行同一点击、输入、跳转和 DOM 断言；原截图标注了下拉、单元格或弹窗字段，新证据也必须覆盖同一表面。
 
 ## 5. 用户认可后的记录和文档沉淀
 
@@ -79,7 +79,7 @@
 | 前端开发规范、组件复用、表格、表单、弹窗、异步状态规则缺失或写得不够清楚 | `frontend-dev-standards/references/frontend-dev-standards.md` |
 | API/schema、DTO、Mock、字段来源、状态动作契约规则缺失或写得不够清楚 | `frontend-doc-sync/references/doc-sync-checklist.md` |
 | 代码审核检查点、事件绑定、提交锁、校验、回归风险规则缺失或写得不够清楚 | `frontend-code-audit/references/code-audit-checklist.md` |
-| 浏览器截图、Playwright、显示问题、基础交互取证规则缺失或写得不够清楚 | `frontend-browser-qa/references/browser-qa-checklist.md` |
+| 浏览器截图、Playwright、显示问题、动态交互取证规则缺失或写得不够清楚 | `frontend-browser-qa/references/browser-qa-checklist.md` |
 | 产品验收、业务流程、用户角色、数据流转判断规则缺失或写得不够清楚 | `frontend-product-acceptance/references/product-acceptance-checklist.md` |
 | 修复闭环流程、用户认可后记录、文档沉淀规则缺失或写得不够清楚 | `frontend-fix-loop/references/fix-loop.md` |
 | 用户已认可的可复用问题案例 | `frontend-fix-loop/references/frontend-issue-record.md` |

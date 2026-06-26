@@ -70,7 +70,7 @@ my-skills/
 | 3. 开发规范 | `frontend-dev-standards` | 改代码前检查组件复用、字段契约、表格、弹窗、样式、异步状态 |
 | 4. 契约同步 | `frontend-doc-sync` | 字段、接口、Schema、Mock、测试数据变化时保持一致 |
 | 5. 代码审核 | `frontend-code-audit` | 写完后按三类（显示/代码/业务逻辑）输出问题 |
-| 6. 浏览器 QA | `frontend-browser-qa` | 真实浏览器截图、Playwright、视觉取证（只取证不修复） |
+| 6. 浏览器 QA | `frontend-browser-qa` | 真实浏览器视觉截图、Playwright 测试或 MCP 点击/DOM 断言（只取证不修复） |
 | 7. 产品验收 | `frontend-product-acceptance` | 基于 PRD 与浏览器证据，从产品视角审核功能和业务逻辑 |
 | 8. 修复闭环 | `frontend-fix-loop` | 处理用户反馈和重复问题，修复、回归、确认后沉淀规则 |
 
@@ -95,7 +95,7 @@ my-skills/
 | `frontend-dev-standards` | `references/frontend-dev-standards.md` | 按规范实现的前端代码 |
 | `frontend-doc-sync` | `references/doc-sync-checklist.md` | 字段矩阵、API/Schema、Mock、测试数据同步 |
 | `frontend-code-audit` | `references/code-audit-checklist.md` | 分类输出的问题清单（显示/代码/业务逻辑） |
-| `frontend-browser-qa` | `references/browser-qa-checklist.md` | 截图目录（目标项目 `docs/qa-screenshots/`）、断言结果 |
+| `frontend-browser-qa` | `references/browser-qa-checklist.md` | 截图目录（如有）、视觉证据、Playwright/MCP 动态交互断言结果 |
 | `frontend-product-acceptance` | `references/product-acceptance-checklist.md` | 验收结论 + 问题分流 |
 | `frontend-fix-loop` | `references/fix-loop.md` | 修复结果 + 沉淀到对应文件 |
 | `frontend-skill-index` | `references/frontend-skill-package.md` | skill 路由和包结构说明 |
@@ -115,7 +115,7 @@ my-skills/
 - 每个 skill 默认只有一个强制阅读的主 reference，减少 token 消耗和规则冲突
 - 记录库、脚本说明、目标项目 PRD 按需读取
 - 具体业务 PRD 不写进本 skill 包，维护在目标项目 `docs/product/PRD.md`
-- 浏览器截图存放在目标项目 `docs/qa-screenshots/` 下，不放进 skill 仓库
+- 视觉问题的浏览器截图存放在目标项目 `docs/qa-screenshots/` 下，不放进 skill 仓库；动态交互问题优先沉淀为 Playwright 测试或 MCP 断言记录
 
 ## 自进化机制
 
